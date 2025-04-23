@@ -1,8 +1,8 @@
-
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { Gallery } from "@/components/sections/Gallery";
 import { BackToTop } from "@/components/BackToTop";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -201,6 +201,7 @@ const Index = () => {
           <About />
           <Programs />
           <Faculty />
+          <Gallery />
           <Articles />
           <Footer />
           <BackToTop />
