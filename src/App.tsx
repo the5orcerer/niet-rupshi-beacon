@@ -9,7 +9,15 @@ import Faculty from "./pages/Faculty";
 import NotFound from "./pages/NotFound";
 import React from "react";
 
-const queryClient = new QueryClient();
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   return (

@@ -1,3 +1,5 @@
+
+import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
@@ -77,7 +79,7 @@ const Faculty = () => {
         .limit(3);
       
       if (error) throw error;
-      return data;
+      return data || [];
     },
   });
 
@@ -142,7 +144,7 @@ const Articles = () => {
         .limit(4);
       
       if (error) throw error;
-      return data;
+      return data || [];
     },
   });
 
@@ -156,7 +158,7 @@ const Articles = () => {
         </h2>
         <Carousel className="w-full">
           <CarouselContent>
-            {articles?.map((article, index) => (
+            {articles?.map((article) => (
               <CarouselItem key={article.id} className="md:basis-1/2 lg:basis-1/3">
                 <Card className="h-full">
                   <CardContent className="p-0 flex flex-col h-full">
