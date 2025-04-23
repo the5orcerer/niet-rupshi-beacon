@@ -4,6 +4,19 @@ import { Hero } from "@/components/sections/Hero";
 import { BackToTop } from "@/components/BackToTop";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 // Placeholder sections - we would create individual component files for these in a complete implementation
 const About = () => (
@@ -54,6 +67,128 @@ const Programs = () => (
   </section>
 );
 
+const Faculty = () => {
+  const { data: faculty, isLoading } = useQuery({
+    queryKey: ["faculty"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("faculty")
+        .select("*")
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  if (isLoading) return null;
+
+  return (
+    <section id="faculty" className="py-20 bg-gray-50 dark:bg-niet-navy/10">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-poppins text-niet-navy dark:text-white">
+          Our Esteemed Faculty
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {faculty?.map((member) => (
+            <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <CardContent className="p-0">
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={member.image_url || '/placeholder.svg'} 
+                    alt={member.name} 
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{member.name}</h3>
+                  <div className="flex items-center mb-2">
+                    <Badge variant="secondary">{member.position}</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                    {member.bio}
+                  </p>
+                  <Link 
+                    to="/faculty" 
+                    className="text-niet-blue hover:text-niet-cyan transition-colors"
+                  >
+                    View Full Profile &rarr;
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link 
+            to="/faculty" 
+            className="inline-block px-6 py-3 bg-niet-blue text-white rounded-lg hover:bg-niet-cyan transition-colors"
+          >
+            Meet All Faculty Members
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Articles = () => {
+  const { data: articles, isLoading } = useQuery({
+    queryKey: ["articles"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .limit(4);
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  if (isLoading) return null;
+
+  return (
+    <section id="blog" className="py-20 bg-white dark:bg-niet-navy/20">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-poppins text-niet-navy dark:text-white">
+          Latest Research & Insights
+        </h2>
+        <Carousel className="w-full">
+          <CarouselContent>
+            {articles?.map((article, index) => (
+              <CarouselItem key={article.id} className="md:basis-1/2 lg:basis-1/3">
+                <Card className="h-full">
+                  <CardContent className="p-0 flex flex-col h-full">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={article.image_url || '/placeholder.svg'} 
+                        alt={article.title} 
+                        className="w-full h-full object-cover" 
+                      />
+                    </div>
+                    <div className="p-6 flex-grow">
+                      <h3 className="text-lg font-bold mb-2 line-clamp-2">{article.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                        {article.excerpt}
+                      </p>
+                      <div className="flex items-center">
+                        <span className="text-xs text-muted-foreground">By {article.author}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
+    </section>
+  );
+};
+
 const Index = () => {
   return (
     <LanguageProvider>
@@ -63,7 +198,8 @@ const Index = () => {
           <Hero />
           <About />
           <Programs />
-          {/* Other sections would be included here */}
+          <Faculty />
+          <Articles />
           <Footer />
           <BackToTop />
         </div>
