@@ -9,7 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      faculty: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          department: string
+          education: string[] | null
+          email: string | null
+          id: string
+          image_url: string | null
+          linkedin_url: string | null
+          name: string
+          phone: string | null
+          position: Database["public"]["Enums"]["faculty_position"]
+          research_interests: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          department: string
+          education?: string[] | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          linkedin_url?: string | null
+          name: string
+          phone?: string | null
+          position: Database["public"]["Enums"]["faculty_position"]
+          research_interests?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          department?: string
+          education?: string[] | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          linkedin_url?: string | null
+          name?: string
+          phone?: string | null
+          position?: Database["public"]["Enums"]["faculty_position"]
+          research_interests?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +65,12 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      faculty_position:
+        | "Professor"
+        | "Associate Professor"
+        | "Assistant Professor"
+        | "Lecturer"
+        | "Senior Lecturer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +185,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      faculty_position: [
+        "Professor",
+        "Associate Professor",
+        "Assistant Professor",
+        "Lecturer",
+        "Senior Lecturer",
+      ],
+    },
   },
 } as const
