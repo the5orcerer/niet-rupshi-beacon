@@ -6,6 +6,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,13 +29,13 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: t("nav.home"), href: "#home" },
-    { name: t("nav.about"), href: "#about" },
-    { name: t("nav.programs"), href: "#programs" },
-    { name: t("nav.faculty"), href: "#faculty" },
-    { name: t("nav.blog"), href: "#blog" },
-    { name: t("nav.gallery"), href: "#gallery" },
-    { name: t("nav.contact"), href: "#contact" },
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.about"), href: "/#about" },
+    { name: t("nav.programs"), href: "/#programs" },
+    { name: t("nav.faculty"), href: "/faculty" },
+    { name: t("nav.blog"), href: "/#blog" },
+    { name: t("nav.gallery"), href: "/#gallery" },
+    { name: t("nav.contact"), href: "/#contact" },
   ];
 
   return (
@@ -49,23 +50,33 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 font-poppins">
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <span className="text-xl md:text-2xl font-bold text-niet-navy dark:text-white">
                 NIET
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-niet-blue dark:text-gray-200 dark:hover:text-niet-blue rounded-md transition-colors"
-              >
-                {link.name}
-              </a>
+              link.href.startsWith("/#") ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-niet-blue dark:text-gray-200 dark:hover:text-niet-blue rounded-md transition-colors"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-niet-blue dark:text-gray-200 dark:hover:text-niet-blue rounded-md transition-colors"
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -109,14 +120,25 @@ export function Navbar() {
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith("/#") ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
               <div className="mt-4 px-3">
                 <Button
