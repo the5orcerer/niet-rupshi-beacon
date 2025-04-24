@@ -1,5 +1,5 @@
 
-import { Mail, MapPin, Phone, Gallery } from "lucide-react";
+import { Mail, MapPin, Phone, ImageIcon } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
 

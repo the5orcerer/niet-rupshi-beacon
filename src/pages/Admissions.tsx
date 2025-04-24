@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,7 +25,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -93,6 +92,7 @@ const Admissions = () => {
 
   const handleApplicationSubmit = async (values: ApplicationFormValues) => {
     try {
+      // Modified: Added random UUID for user_id since we're not requiring login
       const { data, error } = await supabase.from('admissions').insert({
         full_name: values.fullName,
         email: values.email,
@@ -101,6 +101,7 @@ const Admissions = () => {
         education_level: values.educationLevel,
         previous_institution: values.previousInstitution,
         grade_or_cgpa: values.gradeOrCgpa ? parseFloat(values.gradeOrCgpa) : null,
+        user_id: crypto.randomUUID() // Generate a random UUID for guest submissions
       });
 
       if (error) {
