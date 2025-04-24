@@ -10,6 +10,10 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Admissions from "./pages/Admissions";
+import Blog from "./pages/Blog";
+import Article from "./pages/Article";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import React from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -40,6 +44,10 @@ const App = () => {
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/admissions" element={<Admissions />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:id" element={<Article />} />
+                  <Route path="/terms" element={<TermsOfService />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>

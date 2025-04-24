@@ -1,6 +1,6 @@
-
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
 export function Footer() {
   const { t } = useLanguage();
@@ -48,12 +48,12 @@ export function Footer() {
           <div>
             <h4 className="text-lg font-bold font-poppins mb-4">{t("footer.links")}</h4>
             <ul className="space-y-2">
-              <li><a href="#about" className="text-gray-300 hover:text-niet-blue transition-colors">About Us</a></li>
-              <li><a href="#programs" className="text-gray-300 hover:text-niet-blue transition-colors">Programs</a></li>
-              <li><a href="#faculty" className="text-gray-300 hover:text-niet-blue transition-colors">Faculty</a></li>
-              <li><a href="#blog" className="text-gray-300 hover:text-niet-blue transition-colors">News & Events</a></li>
-              <li><a href="#gallery" className="text-gray-300 hover:text-niet-blue transition-colors">Gallery</a></li>
-              <li><a href="#contact" className="text-gray-300 hover:text-niet-blue transition-colors">Contact</a></li>
+              <li><Link to="/blog" className="text-gray-300 hover:text-niet-blue transition-colors">Blog & News</Link></li>
+              <li><Link to="/faculty" className="text-gray-300 hover:text-niet-blue transition-colors">Faculty</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-niet-blue transition-colors">Contact</Link></li>
+              <li><Link to="/admissions" className="text-gray-300 hover:text-niet-blue transition-colors">Admissions</Link></li>
+              <li><Link to="/terms" className="text-gray-300 hover:text-niet-blue transition-colors">Terms of Service</Link></li>
+              <li><Link to="/privacy" className="text-gray-300 hover:text-niet-blue transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
           
@@ -98,7 +98,9 @@ export function Footer() {
         
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
-            &copy; {currentYear} NIET - {t("footer.rights")}
+            &copy; {currentYear} NIET - {t("footer.rights")} |{" "}
+            <Link to="/terms" className="hover:text-niet-blue transition-colors">Terms</Link> |{" "}
+            <Link to="/privacy" className="hover:text-niet-blue transition-colors">Privacy</Link>
           </p>
         </div>
       </div>
