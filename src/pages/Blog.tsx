@@ -6,9 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
 import { Loader } from "lucide-react";
+import { ArticleActions } from "@/components/ArticleActions";
+import { Toaster } from "@/components/ui/sonner";
 
 const Blog = () => {
   const [page, setPage] = useState(1);
@@ -72,16 +73,19 @@ const Blog = () => {
                         <p className="text-muted-foreground mb-4 line-clamp-3 flex-grow">
                           {article.excerpt}
                         </p>
-                        <div className="flex items-center justify-between mt-auto">
-                          <span className="text-sm text-muted-foreground">
-                            By {article.author}
-                          </span>
-                          <Link 
-                            to={`/blog/${article.id}`}
-                            className="text-niet-blue hover:text-niet-cyan transition-colors font-medium"
-                          >
-                            Read more →
-                          </Link>
+                        <div className="flex flex-col gap-4">
+                          <ArticleActions articleId={article.id} />
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-muted-foreground">
+                              By {article.author}
+                            </span>
+                            <Link 
+                              to={`/blog/${article.id}`}
+                              className="text-niet-blue hover:text-niet-cyan transition-colors font-medium"
+                            >
+                              Read more →
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -105,6 +109,7 @@ const Blog = () => {
         </div>
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 };

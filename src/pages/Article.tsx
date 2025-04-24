@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader } from "lucide-react";
+import { ArticleActions } from "@/components/ArticleActions";
+import { Toaster } from "@/components/ui/sonner";
 
 const Article = () => {
   const { id } = useParams();
@@ -67,7 +69,7 @@ const Article = () => {
             {article.title}
           </h1>
           
-          <div className="flex items-center mb-8 text-muted-foreground">
+          <div className="flex items-center justify-between mb-8 text-muted-foreground">
             <div className="flex items-center">
               <span className="font-medium">By {article.author}</span>
               <span className="mx-2">•</span>
@@ -79,6 +81,7 @@ const Article = () => {
                 })}
               </time>
             </div>
+            <ArticleActions articleId={article.id} />
           </div>
           
           <div className="prose prose-lg dark:prose-invert max-w-none">
@@ -91,6 +94,7 @@ const Article = () => {
         </article>
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 };
