@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -6,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { FacultyCard } from "@/components/FacultyCard";
 
 const Faculty = () => {
   const { t } = useLanguage();
@@ -56,8 +58,8 @@ const Faculty = () => {
                       <p className="text-niet-blue font-medium mb-2">{member.position}</p>
                       <p className="text-muted-foreground mb-4">{member.department}</p>
                       <div className="text-sm">
-                        <p><strong>Education:</strong> {member.education}</p>
-                        <p><strong>Specialization:</strong> {member.specialization}</p>
+                        <p><strong>Education:</strong> {Array.isArray(member.education) ? member.education.join(', ') : member.education}</p>
+                        <p><strong>Research Interests:</strong> {Array.isArray(member.research_interests) ? member.research_interests.join(', ') : member.research_interests}</p>
                         <p><strong>Email:</strong> {member.email}</p>
                       </div>
                     </div>
