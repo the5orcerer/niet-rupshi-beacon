@@ -8,9 +8,11 @@ import Index from "./pages/Index";
 import Faculty from "./pages/Faculty";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";  // New import
-import Admissions from "./pages/Admissions";  // New import
+import Auth from "./pages/Auth";
+import Admissions from "./pages/Admissions";
 import React from "react";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -26,20 +28,24 @@ const App = () => {
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/faculty" element={<Faculty />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/auth" element={<Auth />} />  {/* New route */}
-              <Route path="/admissions" element={<Admissions />} />  {/* New route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/faculty" element={<Faculty />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/admissions" element={<Admissions />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );

@@ -4,8 +4,6 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { Gallery } from "@/components/sections/Gallery";
 import { BackToTop } from "@/components/BackToTop";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { 
@@ -19,6 +17,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 // Placeholder sections - we would create individual component files for these in a complete implementation
 const About = () => (
@@ -193,21 +193,17 @@ const Articles = () => {
 
 const Index = () => {
   return (
-    <LanguageProvider>
-      <ThemeProvider>
-        <div className="min-h-screen font-inter">
-          <Navbar />
-          <Hero />
-          <About />
-          <Programs />
-          <Faculty />
-          <Gallery />
-          <Articles />
-          <Footer />
-          <BackToTop />
-        </div>
-      </ThemeProvider>
-    </LanguageProvider>
+    <div className="min-h-screen font-inter">
+      <Navbar />
+      <Hero />
+      <About />
+      <Programs />
+      <Faculty />
+      <Gallery />
+      <Articles />
+      <Footer />
+      <BackToTop />
+    </div>
   );
 };
 
