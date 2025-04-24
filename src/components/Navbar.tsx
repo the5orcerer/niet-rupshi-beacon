@@ -7,35 +7,52 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/sonner";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const { t } = useLanguage();
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    fetchUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      authListener.subscription.unsubscribe();
     };
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast.error('Logout failed', { description: error.message });
+      } else {
+        toast.success('Logged out successfully');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const navLinks = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.about"), href: "/#about" },
     { name: t("nav.programs"), href: "/#programs" },
     { name: t("nav.faculty"), href: "/faculty" },
-    { name: t("nav.blog"), href: "/#blog" },
     { name: t("nav.gallery"), href: "/#gallery" },
-    { name: t("nav.contact"), href: "/#contact" },
+    { name: t("nav.contact"), href: "/contact" },
   ];
 
   return (
@@ -85,12 +102,30 @@ export function Navbar() {
             <LanguageSwitcher />
             <ThemeToggle />
             
-            {/* Apply Now button (hidden on mobile) */}
-            <Button
-              className="hidden md:flex bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity"
-            >
-              {t("nav.apply")}
-            </Button>
+            {user ? (
+              <>
+                <Link to="/admissions" className="hidden md:flex bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity px-4 py-2 rounded-lg">
+                  Apply Now
+                </Link>
+                <Button 
+                  variant="destructive" 
+                  size="sm" 
+                  onClick={handleLogout}
+                  className="hidden md:flex"
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  to="/auth" 
+                  className="hidden md:flex bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity px-4 py-2 rounded-lg"
+                >
+                  Login / Sign Up
+                </Link>
+              </>
+            )}
 
             {/* Mobile menu button */}
             <button
@@ -140,14 +175,39 @@ export function Navbar() {
                   </Link>
                 )
               ))}
-              <div className="mt-4 px-3">
-                <Button
-                  className="w-full bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("nav.apply")}
-                </Button>
-              </div>
+              {user ? (
+                <>
+                  <div className="mt-4 px-3">
+                    <Link 
+                      to="/admissions" 
+                      className="block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Apply Now
+                    </Link>
+                  </div>
+                  <div className="mt-2 px-3">
+                    <Button 
+                      variant="destructive" 
+                      size="sm" 
+                      onClick={handleLogout} 
+                      className="w-full"
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div className="mt-4 px-3">
+                  <Link 
+                    to="/auth" 
+                    className="block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Login / Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

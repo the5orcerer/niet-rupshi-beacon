@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import Faculty from "./pages/Faculty";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";  // New import
+import Admissions from "./pages/Admissions";  // New import
 import React from "react";
 
 // Create a client
@@ -32,6 +34,8 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/faculty" element={<Faculty />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/auth" element={<Auth />} />  {/* New route */}
+              <Route path="/admissions" element={<Admissions />} />  {/* New route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
