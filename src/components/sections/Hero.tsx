@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Bell } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Animation variants for the floating elements
 const floatingElements = Array.from({ length: 8 }, (_, i) => ({
@@ -119,20 +120,25 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
           >
-            <Button
-              className="bg-gradient-to-r from-niet-blue to-niet-cyan text-white font-medium px-8 py-3 rounded-full hover:shadow-lg transition-shadow"
-              size="lg"
-            >
-              {t("hero.apply")}
-            </Button>
-            <Button
-              variant="outline"
-              className="dark:border-gray-700 dark:text-gray-300 px-8 py-3 rounded-full group"
-              size="lg"
-            >
-              {t("hero.cta")}
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link to="/admissions">
+              <Button
+                className="bg-gradient-to-r from-niet-blue to-niet-cyan text-white font-medium px-8 py-3 rounded-full hover:shadow-lg transition-shadow"
+                size="lg"
+              >
+                {t("hero.apply")}
+              </Button>
+            </Link>
+            <Link to="/announcements">
+              <Button
+                variant="outline"
+                className="dark:border-gray-700 dark:text-gray-300 px-8 py-3 rounded-full group"
+                size="lg"
+              >
+                <Bell className="mr-2 h-4 w-4" />
+                Announcements
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
         

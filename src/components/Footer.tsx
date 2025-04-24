@@ -1,4 +1,5 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+
+import { Mail, MapPin, Phone, Gallery } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,7 @@ export function Footer() {
   return (
     <footer className="bg-niet-navy text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* About */}
           <div>
             <h3 className="text-2xl font-bold font-poppins mb-4">NIET</h3>
@@ -50,6 +51,8 @@ export function Footer() {
             <ul className="space-y-2">
               <li><Link to="/blog" className="text-gray-300 hover:text-niet-blue transition-colors">Blog & News</Link></li>
               <li><Link to="/faculty" className="text-gray-300 hover:text-niet-blue transition-colors">Faculty</Link></li>
+              <li><Link to="/announcements" className="text-gray-300 hover:text-niet-blue transition-colors">Announcements</Link></li>
+              <li><Link to="/#gallery" className="text-gray-300 hover:text-niet-blue transition-colors">Gallery</Link></li>
               <li><Link to="/contact" className="text-gray-300 hover:text-niet-blue transition-colors">Contact</Link></li>
               <li><Link to="/admissions" className="text-gray-300 hover:text-niet-blue transition-colors">Admissions</Link></li>
               <li><Link to="/terms" className="text-gray-300 hover:text-niet-blue transition-colors">Terms of Service</Link></li>
@@ -74,25 +77,6 @@ export function Footer() {
                 <span className="text-gray-300">info@niet.edu.bd</span>
               </li>
             </ul>
-          </div>
-          
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-lg font-bold font-poppins mb-4">{t("footer.newsletter")}</h4>
-            <p className="text-gray-300 mb-4">Stay updated with our latest news and events.</p>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 py-2 px-3 rounded-l-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-niet-blue"
-              />
-              <button
-                type="submit"
-                className="bg-niet-blue py-2 px-4 rounded-r-md hover:bg-niet-cyan transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
           </div>
         </div>
         

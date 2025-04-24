@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Bell } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -11,7 +11,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const { t } = useLanguage();
@@ -46,22 +45,20 @@ export function Navbar() {
     }
   };
 
+  // Updated navigation links - removed Gallery and added Blog
   const navLinks = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.about"), href: "/#about" },
     { name: t("nav.programs"), href: "/#programs" },
     { name: t("nav.faculty"), href: "/faculty" },
-    { name: t("nav.gallery"), href: "/#gallery" },
+    { name: t("nav.blog"), href: "/blog" },
+    { name: t("nav.announcements"), href: "/announcements" },
     { name: t("nav.contact"), href: "/contact" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 backdrop-blur-md shadow-md dark:bg-niet-dark/90"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-md dark:bg-niet-dark/90`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
