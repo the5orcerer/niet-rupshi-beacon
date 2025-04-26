@@ -169,14 +169,6 @@ const Auth = () => {
             )}
           </CardHeader>
           <CardContent>
-            {/* Add demo credentials info */}
-            <div className="mb-6 p-4 bg-niet-blue/10 rounded-lg">
-              <h3 className="font-semibold text-niet-blue mb-2">Demo Credentials</h3>
-              <p className="text-sm text-muted-foreground">
-                Email: demo@niet.edu<br />
-                Password: demo123
-              </p>
-            </div>
             {isResettingPassword ? (
               <Form {...forgotPasswordForm}>
                 <form onSubmit={forgotPasswordForm.handleSubmit(handleResetPassword)} className="space-y-4">

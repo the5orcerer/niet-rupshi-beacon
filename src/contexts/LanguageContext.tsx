@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, ReactNode } from "react";
 
 type Language = "en" | "bn";
@@ -40,6 +39,7 @@ const translations = {
     "footer.rights": "All Rights Reserved",
     "footer.newsletter": "Subscribe to Newsletter",
     "footer.links": "Quick Links",
+    "nav.notice": "Notice",
   },
   bn: {
     "nav.home": "হোম",
@@ -70,6 +70,7 @@ const translations = {
     "footer.rights": "সর্বস্বত্ব সংরক্ষিত",
     "footer.newsletter": "নিউজলেটার সাবস্ক্রাইব করুন",
     "footer.links": "দ্রুত লিংক",
+    "nav.notice": "বিজ্ঞপ্তি",
   },
 };
 

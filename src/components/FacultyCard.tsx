@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -71,9 +70,7 @@ export const FacultyCard = ({ faculty }: FacultyCardProps) => {
             </a>
           )}
         </div>
-        <div className="pt-4">
-          <ArticleActions articleId={faculty.id} />
-        </div>
+        <ArticleActions articleId={faculty.id} />
       </CardContent>
     </Card>
   );

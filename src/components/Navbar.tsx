@@ -51,7 +51,7 @@ export function Navbar() {
     { name: t("nav.programs"), href: "/#programs" },
     { name: t("nav.faculty"), href: "/faculty" },
     { name: t("nav.blog"), href: "/blog" },
-    { name: t("nav.notice"), href: "/announcements" }, // Changed from announcements to notice
+    { name: t("nav.notice"), href: "/announcements" },
     { name: t("nav.contact"), href: "/contact" },
   ];
 
