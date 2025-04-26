@@ -63,15 +63,15 @@ const Faculty = () => {
         .order("name");
       
       if (error) throw error;
-      return data?.length ? data : demoFaculty; // Use demo faculty if no data
+      return data?.length ? data : demoFaculty;
     },
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
+      <main className="flex-1 w-full">
+        <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <h1 className="text-4xl font-bold mb-2 text-center text-niet-navy dark:text-white">
             Our Distinguished Faculty
           </h1>
@@ -84,7 +84,7 @@ const Faculty = () => {
               <Loader className="h-8 w-8 animate-spin text-niet-blue" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
               {faculty?.map((member) => (
                 <FacultyCard key={member.id} faculty={member} />
               ))}
