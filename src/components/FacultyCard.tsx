@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, Mail, Phone, Linkedin } from "lucide-react";
+import { ArticleActions } from "./ArticleActions";
 
 interface FacultyMember {
   id: string;
@@ -43,9 +44,9 @@ export const FacultyCard = ({ faculty }: FacultyCardProps) => {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-6 pt-0">
+      <CardContent className="p-6 pt-0 space-y-4">
         {faculty.bio && (
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+          <p className="text-sm text-muted-foreground line-clamp-3">
             {faculty.bio}
           </p>
         )}
@@ -69,6 +70,9 @@ export const FacultyCard = ({ faculty }: FacultyCardProps) => {
               LinkedIn Profile
             </a>
           )}
+        </div>
+        <div className="pt-4">
+          <ArticleActions articleId={faculty.id} />
         </div>
       </CardContent>
     </Card>

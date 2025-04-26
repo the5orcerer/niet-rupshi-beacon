@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -9,20 +8,41 @@ import { Loader } from "lucide-react";
 import { ArticleActions } from "@/components/ArticleActions";
 import { Toaster } from "@/components/ui/sonner";
 
+// Add a demo article if no article is found
+const demoArticle = {
+  id: "demo-article",
+  title: "Advancing Technology Education: A New Paradigm",
+  content: `In today's rapidly evolving technological landscape, education plays a pivotal role in shaping the future workforce. Our institution stands at the forefront of this evolution, implementing innovative teaching methodologies and cutting-edge curriculum design.
+
+The integration of practical, hands-on experience with theoretical knowledge has proven to be highly effective in preparing students for real-world challenges. Through our state-of-the-art laboratories and industry partnerships, students gain invaluable exposure to current industry practices and emerging technologies.
+
+Furthermore, our research initiatives continue to push boundaries in various fields, from artificial intelligence to sustainable engineering. These endeavors not only contribute to the body of knowledge but also provide students with opportunities to participate in groundbreaking research projects.
+
+We remain committed to fostering an environment of innovation, critical thinking, and technological excellence. Our goal is to empower the next generation of engineers and technologists to make meaningful contributions to society through their work and research.`,
+  image_url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  author: "Dr. Sarah Johnson",
+  published_at: new Date().toISOString(),
+  excerpt: "Exploring the future of technology education and its impact on shaping tomorrow's innovators.",
+};
+
 const Article = () => {
   const { id } = useParams();
 
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
     queryFn: async () => {
+      if (id === "demo-article") {
+        return demoArticle;
+      }
+      
       const { data, error } = await supabase
         .from("articles")
         .select("*")
         .eq("id", id)
-        .single();
+        .maybeSingle();
       
       if (error) throw error;
-      return data;
+      return data || demoArticle; // Fallback to demo article if none found
     },
   });
 

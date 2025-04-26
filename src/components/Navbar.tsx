@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, Bell } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,14 +44,14 @@ export function Navbar() {
     }
   };
 
-  // Updated navigation links - removed Gallery and added Blog
+  // Updated navigation links
   const navLinks = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.about"), href: "/#about" },
     { name: t("nav.programs"), href: "/#programs" },
     { name: t("nav.faculty"), href: "/faculty" },
     { name: t("nav.blog"), href: "/blog" },
-    { name: t("nav.announcements"), href: "/announcements" },
+    { name: t("nav.notice"), href: "/announcements" }, // Changed from announcements to notice
     { name: t("nav.contact"), href: "/contact" },
   ];
 
@@ -119,7 +118,7 @@ export function Navbar() {
                   to="/auth" 
                   className="hidden md:flex bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity px-4 py-2 rounded-lg"
                 >
-                  Login / Sign Up
+                  Sign in
                 </Link>
               </>
             )}
@@ -201,7 +200,7 @@ export function Navbar() {
                     className="block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-niet-blue to-niet-cyan text-white hover:opacity-90 transition-opacity"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Login / Sign Up
+                    Sign in
                   </Link>
                 </div>
               )}

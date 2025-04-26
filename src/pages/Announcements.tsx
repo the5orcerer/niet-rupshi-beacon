@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
@@ -18,7 +17,7 @@ interface Announcement {
   is_important: boolean;
 }
 
-// Mock data for announcements
+// Updated mock data with more announcements
 const mockAnnouncements: Announcement[] = [
   {
     id: "1",
@@ -67,12 +66,44 @@ const mockAnnouncements: Announcement[] = [
     date: "2023-03-01",
     category: "Financial",
     is_important: true
+  },
+  {
+    id: "7",
+    title: "Annual Sports Meet Registration",
+    content: "Registration for the Annual Sports Meet is now open. Students can register for various sports events through the online portal.",
+    date: "2024-02-15",
+    category: "Sports",
+    is_important: false
+  },
+  {
+    id: "8",
+    title: "Industry Expert Guest Lecture Series",
+    content: "We are pleased to announce a series of guest lectures by industry experts starting next month. The schedule will be posted soon.",
+    date: "2024-02-10",
+    category: "Academic",
+    is_important: true
+  },
+  {
+    id: "9",
+    title: "Campus Sustainability Initiative",
+    content: "Join us in making our campus more environmentally friendly. New recycling bins have been installed across campus.",
+    date: "2024-02-05",
+    category: "Administrative",
+    is_important: false
+  },
+  {
+    id: "10",
+    title: "International Conference Call for Papers",
+    content: "Submit your research papers for the upcoming International Conference on Emerging Technologies.",
+    date: "2024-02-01",
+    category: "Research",
+    is_important: true
   }
 ];
 
 const Announcements = () => {
-  // In a real implementation, you would fetch announcements from Supabase
-  // For now, we'll use mock data
+  const [displayCount, setDisplayCount] = useState(6);
+  
   const { data: announcements, isLoading } = useQuery({
     queryKey: ["announcements"],
     queryFn: async () => {
@@ -85,6 +116,10 @@ const Announcements = () => {
     },
   });
 
+  const handleLoadMore = () => {
+    setDisplayCount(prev => prev + 4);
+  };
+
   return (
     <div className="min-h-screen bg-background font-inter">
       <Navbar />
@@ -96,7 +131,7 @@ const Announcements = () => {
             </div>
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-niet-navy dark:text-white">
-                Announcements
+                Notice Board
               </h1>
               <p className="text-muted-foreground mt-2">
                 Stay updated with the latest news and events from our institution
@@ -117,7 +152,7 @@ const Announcements = () => {
                 </Card>
               ))
             ) : (
-              announcements?.map((announcement) => (
+              announcements?.slice(0, displayCount).map((announcement) => (
                 <Card 
                   key={announcement.id} 
                   className={`overflow-hidden ${
@@ -144,11 +179,17 @@ const Announcements = () => {
             )}
           </div>
           
-          <div className="text-center">
-            <Button variant="outline" className="px-8">
-              Load More Announcements
-            </Button>
-          </div>
+          {announcements && displayCount < announcements.length && (
+            <div className="text-center">
+              <Button 
+                variant="outline" 
+                onClick={handleLoadMore}
+                className="px-8 hover:bg-niet-blue/10 hover:text-niet-blue transition-all duration-300"
+              >
+                Load More Notices
+              </Button>
+            </div>
+          )}
         </div>
       </main>
       <Footer />

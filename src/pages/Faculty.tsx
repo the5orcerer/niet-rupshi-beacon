@@ -1,10 +1,8 @@
-
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent } from "@/components/ui/card";
 import { Loader } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { FacultyCard } from "@/components/FacultyCard";
@@ -31,10 +29,10 @@ const Faculty = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-2 text-center text-niet-navy dark:text-white">
-            {t("faculty.title")}
+            Our Distinguished Faculty
           </h1>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            {t("faculty.description")}
+            Meet our exceptional team of educators and researchers dedicated to shaping the future through innovation and excellence in education. Our faculty members bring diverse expertise and real-world experience to the classroom.
           </p>
 
           {isLoading ? (
@@ -44,27 +42,7 @@ const Faculty = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {faculty?.map((member) => (
-                <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <CardContent className="p-0">
-                    <div className="aspect-square overflow-hidden">
-                      <img 
-                        src={member.image_url || "https://via.placeholder.com/300"} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                      <p className="text-niet-blue font-medium mb-2">{member.position}</p>
-                      <p className="text-muted-foreground mb-4">{member.department}</p>
-                      <div className="text-sm">
-                        <p><strong>Education:</strong> {Array.isArray(member.education) ? member.education.join(', ') : member.education}</p>
-                        <p><strong>Research Interests:</strong> {Array.isArray(member.research_interests) ? member.research_interests.join(', ') : member.research_interests}</p>
-                        <p><strong>Email:</strong> {member.email}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <FacultyCard key={member.id} faculty={member} />
               ))}
             </div>
           )}
